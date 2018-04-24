@@ -43,15 +43,30 @@ for referral in referral1: #access dict with ref info
         loop_str = str(loop_name)
         #doc_ref = db.document(u'ReferralDB/{}/Referrals/{}--{}/{}'.format(referral[u'Select-5'], loop_str, referral[u'Text-8'],referral[u'Text-6']))
         doc_ref = db.document(u'ReferralDB/{}_data/refcollection/{}-referralsheet'.format(referral['Select-5'], loop_str))
-		#Make Correct phone numbers
+
+		phone = referral[u'Text-9']
+		if phone == '0':
+			phone = 'No phone number provided.'
+		elif phone[0] != 0:
+			phone = '0' + phone
+		else:
+			pass
+
+		LINE = referral[u'LINE ID']
+
+		line_lower = LINE.lower()
+		if 'a' not in line_lower and 'b' not in line_lower and 'c' not in line_lower and 'd' not in line_lower and 'e' not in line_lower and 'f' not in line_lower and 'g' not in line_lower and 'h' not in line_lower and 'i' not in line_lower and 'j' not in line_lower and 'k' not in line_lower and 'l' not in line_lower and 'm' not in line_lower and 'n' not in line_lower and 'o' not in line_lower and 'p' not in line_lower and 'q' not in line_lower and 'r' not in line_lower and 's' not in line_lower and 't' not in line_lower and 'u' not in line_lower and 'v' not in line_lower and 'w' not in line_lower and 'x' not in line_lower and 'y' not in line_lower and 'z' not in line_lower:
+			if len(line_lower) == 9:
+				LINE = '0' + LINE
+
 		doc_ref.set({
             u'Submitted on': referral[u'Submitted On'],
             u'English Name': referral[u'Text-8'],
             u'Chinese name': referral[u'Text-6'],
             u'Gender': referral[u'Radio-2'],
             u'Location': referral[u'Select-5'],
-            u'LINE ID': referral[u'LINE ID'],
-            u'Phone Number': referral[u'Text-9'],
+            u'LINE ID': LINE,
+            u'Phone Number': phone,
             u'Class Level': referral[u'Radio-3'],
             u'Questions, Comments, and Concerns': referral[u'Textarea-10'],
             u'Do they want the gospel?': referral[u'Radio-4'],
