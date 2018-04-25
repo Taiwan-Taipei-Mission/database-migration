@@ -40,9 +40,9 @@ db = firestore.client()
 
 #Firestorm loop
 for referral in referral1: #access dict with ref info
-        loop_str = str(loop_name)
-        #doc_ref = db.document(u'ReferralDB/{}/Referrals/{}--{}/{}'.format(referral[u'Select-5'], loop_str, referral[u'Text-8'],referral[u'Text-6']))
-        doc_ref = db.document(u'ReferralDB/{}_data/refcollection/{}-referralsheet'.format(referral['Select-5'], loop_str))
+		loop_str = str(loop_name)
+		#doc_ref = db.document(u'ReferralDB/{}/Referrals/{}--{}/{}'.format(referral[u'Select-5'], loop_str, referral[u'Text-8'],referral[u'Text-6']))
+		doc_ref = db.document(u'ReferralDB/{}_data/refcollection/{}-referralsheet'.format(referral['Select-5'], loop_str))
 
 		phone = referral[u'Text-9']
 		if phone == '0':
@@ -60,25 +60,25 @@ for referral in referral1: #access dict with ref info
 				LINE = '0' + LINE
 
 		doc_ref.set({
-            u'Submitted on': referral[u'Submitted On'],
-            u'English Name': referral[u'Text-8'],
-            u'Chinese name': referral[u'Text-6'],
-            u'Gender': referral[u'Radio-2'],
-            u'Location': referral[u'Select-5'],
-            u'LINE ID': LINE,
-            u'Phone Number': phone,
-            u'Class Level': referral[u'Radio-3'],
-            u'Questions, Comments, and Concerns': referral[u'Textarea-10'],
-            u'Do they want the gospel?': referral[u'Radio-4'],
-            u'What source did they come from?': referral[u'Source']
-        })
-        print("Referral successfully saved to {}".format(referral['Select-5']))
-        loop_name += 1
+			u'Submitted on': referral[u'Submitted On'],
+			u'English Name': referral[u'Text-8'],
+			u'Chinese name': referral[u'Text-6'],
+			u'Gender': referral[u'Radio-2'],
+			u'Location': referral[u'Select-5'],
+			u'LINE ID': LINE,
+			u'Phone Number': phone,
+			u'Class Level': referral[u'Radio-3'],
+			u'Questions, Comments, and Concerns': referral[u'Textarea-10'],
+			u'Do they want the gospel?': referral[u'Radio-4'],
+			u'What source did they come from?': referral[u'Source']
+			})
+		print("Referral successfully saved to {}".format(referral['Select-5']))
+		loop_name += 1
 referrals.close()
 #retrieve data
 try:
-    doc = doc_ref.get()
-    print(u'Document data: {}'.format(doc.to_dict()))
-    # do something with retrieved data
+	doc = doc_ref.get()
+	print(u'Document data: {}'.format(doc.to_dict()))
+	# do something with retrieved data
 except google.cloud.exceptions.NotFound:
-    print(u'No such document exists!')
+	print(u'No such document exists!')
